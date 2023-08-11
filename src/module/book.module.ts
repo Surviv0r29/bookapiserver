@@ -7,13 +7,15 @@ import { UserRepository } from 'src/repository/user.repository';
 import { UserBookRepository } from 'src/repository/user-book.repository';
 import { Book } from 'src/entity/book.entity';
 import { DataSource } from 'typeorm';
+import { User } from 'src/entity/user.entity';
+import { UserBook } from 'src/entity/user-book.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([
       Book,
-      UserRepository,
-      UserBookRepository,
+      User,
+      UserBook,
     ]),
   ],
   controllers: [BookController],

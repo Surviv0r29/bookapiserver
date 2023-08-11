@@ -6,7 +6,5 @@ import { User } from '../entity/user.entity';
 @ApiTags('users')
 @Controller('users')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
-
-  
+  constructor(private readonly userService: UserService) {} 
 }
