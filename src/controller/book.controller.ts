@@ -5,7 +5,7 @@ import { Book } from '../entity/book.entity';
 import { CreateBookDto } from 'src/dto/create-book.dto';
 
 @ApiTags('books')
-@Controller('books')
+@Controller('/api/books')
 export class BookController {
   constructor(private readonly bookService: BookService) {}
   @Get()

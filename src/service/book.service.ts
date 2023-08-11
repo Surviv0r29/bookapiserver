@@ -12,23 +12,23 @@ import { CreateBookDto } from 'src/dto/create-book.dto';
 @Injectable()
 export class BookService {
   constructor(
-    @InjectRepository(BookRepository)
+    @InjectRepository(Book)
     private readonly bookRepository: BookRepository,
-    @InjectRepository(UserRepository)
+    @InjectRepository(User)
     private readonly userRepository: UserRepository,
-    @InjectRepository(UserBookRepository)
+    @InjectRepository(UserBook)
     private readonly userBookRepository: UserBookRepository,
   ) {}
 
   async getAllBooks(): Promise<Book[]> {
-    return this.bookRepository.find();
+    return await this.bookRepository.getAllBooks();
   }  
   async findById(id: number): Promise<Book> {
     return this.bookRepository.findOne({ where: { id: id } });
   }
   async createBook(createBookDto: CreateBookDto): Promise<Book> {
     const newBook = this.bookRepository.create(createBookDto);
-    return this.bookRepository.save(newBook);
+    return this.bookRepository.createBook(newBook);
   }
   async buyBook(userId: number, bookId: number): Promise<boolean> {
     const user = await this.userRepository.findOne({ where: { id: userId } });
