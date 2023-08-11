@@ -7,6 +7,7 @@ import { UserBook } from '../entity/user-book.entity';
 import { UserBookRepository } from 'src/repository/user-book.repository';
 import { UserRepository } from 'src/repository/user.repository';
 import { BookRepository } from 'src/repository/book.repository';
+import { CreateBookDto } from 'src/dto/create-book.dto';
 
 @Injectable()
 export class BookService {
@@ -19,10 +20,16 @@ export class BookService {
     private readonly userBookRepository: UserBookRepository,
   ) {}
 
+  async getAllBooks(): Promise<Book[]> {
+    return this.bookRepository.find();
+  }  
   async findById(id: number): Promise<Book> {
     return this.bookRepository.findOne({ where: { id: id } });
   }
-
+  async createBook(createBookDto: CreateBookDto): Promise<Book> {
+    const newBook = this.bookRepository.create(createBookDto);
+    return this.bookRepository.save(newBook);
+  }
   async buyBook(userId: number, bookId: number): Promise<boolean> {
     const user = await this.userRepository.findOne({ where: { id: userId } });
     const book = await this.bookRepository.findOne({ where: { id: bookId } });
@@ -45,4 +52,6 @@ export class BookService {
 
     return true;
   }
+
+  
 }

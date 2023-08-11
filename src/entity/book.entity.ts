@@ -10,9 +10,15 @@ export class Book {
   title: string;
 
   @Column()
-  author: string;
+  description: string;
+
+  @Column({ type: 'int', nullable: true })
+  discountRate: number;
 
   @Column()
+  coverImage: string;
+
+  @Column('decimal', { precision: 10, scale: 2 })
   price: number;
   @ManyToMany(() => UserBook)
   @JoinTable()

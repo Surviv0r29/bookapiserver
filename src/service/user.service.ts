@@ -9,12 +9,4 @@ export class UserService {
     @InjectRepository(UserRepository)
     private readonly userRepository: UserRepository,
   ) {}
-
-  async findById(id: number): Promise<User> {
-    return this.userRepository.findOne({where:{ id: id }});
-  }
-
-  async updateBalance(id: number, newBalance: number): Promise<void> {
-    await this.userRepository.update(id, { balance: newBalance });
-  }
 }
