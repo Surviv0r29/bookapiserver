@@ -1,9 +1,10 @@
 import { Controller, Get, Param, Post, Body } from '@nestjs/common';
 import { BookService } from '../service/book.service';
-import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiProperty, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Book } from '../entity/book.entity';
 import { CreateBookDto } from 'src/dto/create-book.dto';
 import { DeleteBookDto } from 'src/dto/delete-book.dto';
+import { ResponseDto } from 'src/dto/response.dto';
 
 @ApiTags('books')
 @Controller('/api/books')
@@ -12,8 +13,14 @@ export class BookController {
   @Get()
   @ApiOperation({ summary: 'Get all books', description: 'Retrieve a list of all books in the database' })
   @ApiResponse({ status: 200, description: 'Successfully retrieved books', type: [Book] })
-  async getAllBooks(): Promise<Book[]> {
-    return this.bookService.getAllBooks();
+ async getAllBooks(): Promise<ResponseDto<Book[]>> {
+    const data = await this.bookService.getAllBooks();
+    const response: ResponseDto<Book[]>={
+      statusCode: 201,
+      message:"books sent sucessfully..",
+      data,
+    }
+    return response;
   }
   @ApiOperation({ summary: 'Get book by ID' })
   @ApiResponse({ status: 200, description: 'Successful', type: Book })
