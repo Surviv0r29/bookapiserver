@@ -29,11 +29,10 @@ export class BookController {
   @ApiOperation({ summary: 'Buy a book' })
   @Post(':id/purchase')
   async buyBook(@Param('id') bookId: number, @Body() purchaseData: any): Promise<boolean> {
-    // Extract user ID and perform purchase logic
     const userId = purchaseData.userId;
     return this.bookService.buyBook(userId, bookId);
   }
-  @Post()
+  @Post('/delete')
   @ApiOperation({ summary: 'Delete a book', description: 'Delete a book in the database' })
   @ApiResponse({ status: 200, description: 'Book successfully deleted' })
   async deleteBookByid(@Body() id: number): Promise<void> {
