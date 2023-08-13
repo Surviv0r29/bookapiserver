@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Post, Body } from '@nestjs/common';
 import { BookService } from '../service/book.service';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Book } from '../entity/book.entity';
 import { CreateBookDto } from 'src/dto/create-book.dto';
 import { DeleteBookDto } from 'src/dto/delete-book.dto';
@@ -23,6 +23,7 @@ export class BookController {
   }
   @Post()
   @ApiOperation({ summary: 'Create a new book', description: 'Create a new book in the database' })
+  @ApiBody({type:CreateBookDto})
   @ApiResponse({ status: 201, description: 'Book successfully created', type: Book })
   async createBook(@Body() createBookDto: CreateBookDto): Promise<Book> {
     return this.bookService.createBook(createBookDto);
@@ -34,6 +35,7 @@ export class BookController {
     return this.bookService.buyBook(userId, bookId);
   }
   @Post('/delete')
+  @ApiBody({type:DeleteBookDto})
   @ApiOperation({ summary: 'Delete a book', description: 'Delete a book in the database' })
   @ApiResponse({ status: 200, description: 'Book successfully deleted' })
   async deleteBookByid(@Body() deleteBookDto:DeleteBookDto): Promise<void> {
