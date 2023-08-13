@@ -7,6 +7,6 @@ export class ResponseDto<T> {
   @ApiProperty({ example: 'Success', description: 'Message describing the result' })
   message: string;
 
-  @ApiProperty({ type: 'any', description: 'Data returned from the operation', required: false })
+  @ApiProperty({ type: {}, description: 'Data returned from the operation', required: false })
   data?: T;
 }
