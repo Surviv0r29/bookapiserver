@@ -33,4 +33,10 @@ export class BookController {
     const userId = purchaseData.userId;
     return this.bookService.buyBook(userId, bookId);
   }
+  @Post()
+  @ApiOperation({ summary: 'Delete a book', description: 'Delete a book in the database' })
+  @ApiResponse({ status: 200, description: 'Book successfully deleted' })
+  async deleteBookByid(@Body() id: number): Promise<void> {
+    await this.bookService.deleteBookByid(id);
+  }
 }

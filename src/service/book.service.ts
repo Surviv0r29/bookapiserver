@@ -24,7 +24,11 @@ export class BookService {
     return await this.bookRepository.getAllBooks();
   }  
   async findById(id: number): Promise<Book> {
-    return this.bookRepository.findOne({ where: { id: id } });
+    return this.bookRepository.getBookbyId(id);
+
+  }
+  async deleteBookByid(id:number):Promise<void>{
+    await this.bookRepository.deleteBookByid(id);
   }
   async createBook(createBookDto: CreateBookDto): Promise<Book> {
     const newBook = this.bookRepository.create(createBookDto);
