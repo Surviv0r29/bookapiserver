@@ -13,7 +13,7 @@ import { UserBook } from './entity/user-book.entity';
       host: 'localhost',
       port: 3306,
       username: "root",
-      password: "",
+      password: "abcd1234",
       database: "books_api",
       entities: [User, Book, UserBook],
       synchronize: true,
