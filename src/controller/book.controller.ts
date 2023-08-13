@@ -3,6 +3,7 @@ import { BookService } from '../service/book.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Book } from '../entity/book.entity';
 import { CreateBookDto } from 'src/dto/create-book.dto';
+import { DeleteBookDto } from 'src/dto/delete-book.dto';
 
 @ApiTags('books')
 @Controller('/api/books')
@@ -35,7 +36,7 @@ export class BookController {
   @Post('/delete')
   @ApiOperation({ summary: 'Delete a book', description: 'Delete a book in the database' })
   @ApiResponse({ status: 200, description: 'Book successfully deleted' })
-  async deleteBookByid(@Body() id: number): Promise<void> {
-    await this.bookService.deleteBookByid(id);
+  async deleteBookByid(@Body() deleteBookDto:DeleteBookDto): Promise<void> {
+    await this.bookService.deleteBookByid(deleteBookDto);
   }
 }

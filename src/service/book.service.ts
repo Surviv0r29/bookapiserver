@@ -8,6 +8,7 @@ import { UserBookRepository } from 'src/repository/user-book.repository';
 import { UserRepository } from 'src/repository/user.repository';
 import { BookRepository } from 'src/repository/book.repository';
 import { CreateBookDto } from 'src/dto/create-book.dto';
+import { DeleteBookDto } from 'src/dto/delete-book.dto';
 
 @Injectable()
 export class BookService {
@@ -27,8 +28,8 @@ export class BookService {
     return this.bookRepository.getBookbyId(id);
 
   }
-  async deleteBookByid(id:number):Promise<void>{
-    await this.bookRepository.deleteBookByid(id);
+  async deleteBookByid(deleteBookDto: DeleteBookDto):Promise<void>{
+    await this.bookRepository.deleteBookByid(deleteBookDto);
   }
   async createBook(createBookDto: CreateBookDto): Promise<Book> {
     const newBook = this.bookRepository.create(createBookDto);

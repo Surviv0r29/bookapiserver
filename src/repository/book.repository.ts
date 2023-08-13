@@ -2,6 +2,7 @@ import { EntityRepository, Repository } from 'typeorm';
 import { Book } from '../entity/book.entity';
 import { CreateBookDto } from 'src/dto/create-book.dto';
 import { NotFoundException } from '@nestjs/common/exceptions';
+import { DeleteBookDto } from 'src/dto/delete-book.dto';
 
 // @EntityRepository(Book)
 export interface BookRepository extends Repository<Book> {
@@ -10,7 +11,7 @@ export interface BookRepository extends Repository<Book> {
     getBookbyId(id:number):Promise<Book>;
     createBook(book:Book):Book;
     createInstanceBook(createBookDto: CreateBookDto):Book;
-    deleteBookByid(id:number):Promise<void>  
+    deleteBookByid(deleteBookDto: DeleteBookDto):Promise<void>  
   }
 export const bookCustomRepository : Pick<BookRepository,any> ={
     async getBookbyId(this: Repository<Book>,id: number) {
@@ -30,10 +31,10 @@ export const bookCustomRepository : Pick<BookRepository,any> ={
     async createInstanceBook(this: Repository<Book>,createBookDto: CreateBookDto){
         return await this.create(createBookDto);
       },
-    async deleteBookByid(this: Repository<Book>,id:number){
-      const book = await this.findOne({where:{id:id}});
+    async deleteBookByid(this: Repository<Book>,deleteBookDto: DeleteBookDto){
+      const book = await this.findOne({where:{id:deleteBookDto.id}});
       if (!book) {
-        throw new NotFoundException(`Book with ID ${id} not found`);
+        throw new NotFoundException(`Book with ID ${deleteBookDto.id} not found`);
       }
   
       await this.remove(book);
