@@ -63,7 +63,7 @@ export class BookController {
   @ApiBody({type:DeleteBookDto})
   @ApiOperation({ summary: 'Delete a book', description: 'Delete a book in the database' })
   @ApiResponse({ status: 200, description: 'Book successfully deleted',type:ResponseDto<Boolean> })
-  async deleteBookByid(@Body() deleteBookDto:DeleteBookDto): ResponseDto<Boolean> {
+  async deleteBookByid(@Body() deleteBookDto:DeleteBookDto): Promise<ResponseDto<Boolean>> {
    const data  = await this.bookService.deleteBookByid(deleteBookDto);
    const response: ResponseDto<Boolean>={
     statusCode: 201,
